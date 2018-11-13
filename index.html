@@ -1,0 +1,51 @@
+<html>
+  <head>
+    <title>WebAudio Tests</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+
+  <body>
+    <div id="canvas-container">
+      <canvas id="oscilloscope"></canvas>
+      <div id="controls-container">
+        <div>
+          <button id="play" onclick="play()">
+            Play
+          </button>
+          <button id="stop" onclick="stop()">
+            Stop
+          </button>
+        </div>
+        <div>
+          Wave shape:
+          <select id="wave-shape-select" onchange="setWaveShape()">
+            <option value="sine" selected>sine</option>
+            <option value="square">square</option>
+            <option value="sawtooth">sawtooth</option>
+            <option value="triangle">triangle</option>
+            <option value="custom">custom</option>
+          </select>
+        </div>
+        <div>
+          Gain:
+          <input type="range" min="0" max="100" value="15" id="gain-slider" onchange="setGain()">
+        </div>
+        <div>
+          lp filter:
+          <input type="range" min="0" max="100" value="100" id="lp-freq-slider" onchange="setlpfreq()">
+          <input type="range" min="0" max="100" value="0" id="lp-q-slider" onchange="setlpq()">
+        </div>
+        <div>
+          <input type="text" id="freq-ch0" value="220" onchange="setFreq(0)">
+          <input type="text" id="freq-ch1" value="275" onchange="setFreq(1)">
+          <input type="text" id="freq-ch2" value="330" onchange="setFreq(2)">
+          <input type="text" id="freq-ch3" value="412.5" onchange="setFreq(3)">
+        </div>
+
+      </div>
+    </div>
+
+    <script src='app.js'></script>
+  </body>
+</html> 
+
