@@ -28,18 +28,21 @@
         </div>
         <div>
           Gain:
-          <input type="range" min="0" max="100" value="15" id="gain-slider" onchange="setGain()">
+          <input type="range" min="0" max="100" value="15" id="gain-slider" oninput="setGain()" onchange="setGain()">
         </div>
         <div>
           lp filter:
-          <input type="range" min="0" max="100" value="100" id="lp-freq-slider" onchange="setlpfreq()">
-          <input type="range" min="0" max="100" value="0" id="lp-q-slider" onchange="setlpq()">
+          <input type="range" min="0" max="100" value="100" id="lp-freq-slider" oninput="setLpFreq()" onchange="setLpFreq()">
+          <input type="range" min="0" max="100" value="0" id="lp-q-slider" oninput="setLpQ()" onchange="setLpQ()">
         </div>
         <div>
-          <input type="text" id="freq-ch0" value="220" onchange="setFreq(0)">
-          <input type="text" id="freq-ch1" value="275" onchange="setFreq(1)">
+          <input type="text" id="freq-ch0" value="a3" onchange="setFreq(0)">
+          <input type="text" id="freq-ch1" value="c#4" onchange="setFreq(1)">
           <input type="text" id="freq-ch2" value="330" onchange="setFreq(2)">
-          <input type="text" id="freq-ch3" value="412.5" onchange="setFreq(3)">
+          <input type="text" id="freq-ch3" value="g#4" onchange="setFreq(3)">
+        </div>
+        <div>
+          Note: e4 ≈ 330
         </div>
 
       </div>

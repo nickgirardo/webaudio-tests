@@ -10,6 +10,26 @@ let lowPass;
 let analyser;
 let analyserBuffer;
 
+// All equal tempered note frequencies in octave 0
+const baseFreqs = {
+  'a': 27.50000,
+  'a#': 29.13524,
+  'bb': 29.13524,
+  'b': 30.86771,
+  'c': 16.35160,
+  'c#': 17.32391,
+  'db': 17.32391,
+  'd': 18.35405,
+  'd#': 19.44544,
+  'eb': 19.44544,
+  'e': 20.60172,
+  'f': 21.82676,
+  'f#': 23.12465,
+  'gb': 23.12465,
+  'g': 24.49971,
+  'g#': 25.95654,
+  'ab': 25.95654,
+};
 
 function draw() {
   analyser.getByteTimeDomainData(analyserBuffer);
@@ -45,9 +65,39 @@ function draw() {
   window.requestAnimationFrame(draw);
 }
 
+function frequencyFromNoteName(n) {
+  const note = 'abcdefg'.includes(n[0]) ? n[0] : '';
+  const accidental = '#b'.includes(n[1]) ? n[1] : '';
+  const noteName = note + accidental;
+  if(!baseFreqs[noteName]) {
+    // Note name not good
+    return undefined;
+  }
+  const octave = n.substring(noteName.length);
+  if(isNaN(octave)) {
+    // Octave not a number
+    return undefined;
+  }
+  return baseFreqs[noteName] * (2 ** octave);
+}
 window.setFreq = function(chId) {
-  const value = document.getElementById('freq-ch' + chId).value;
-  oscs[chId].frequency.setValueAtTime(value, audioCtx.currentTime);
+  const value = document.getElementById('freq-ch' + chId).value.trim().toLowerCase();
+
+  // Interpret as frequency or note name?
+  if(['a','b','c','d','e','f','g'].some(letter=>value.includes(letter))) {
+    // Maybe a note name
+    const freq = frequencyFromNoteName(value);
+    if(!freq) {
+      console.error(`Unable to parse value for channel ${chId}`);
+      return;
+    }
+    oscs[chId].frequency.setValueAtTime(freq, audioCtx.currentTime);
+  } else if (!isNaN(value)) {
+    // A frequency
+    oscs[chId].frequency.setValueAtTime(value, audioCtx.currentTime);
+  } else {
+    console.error(`Unable to parse value for channel ${chId}`);
+  }
 }
 
 window.setLpFreq = function() {
