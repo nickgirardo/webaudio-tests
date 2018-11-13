@@ -35,3 +35,41 @@ canvas {
     border: 1px solid black;
 }
 
+#sequencer-container table tr td {
+    width: 32px;
+    background-color: #37867e;
+    text-align: center;
+    border-left: 1px #010201 solid;
+    border-bottom: 1px #010201 solid;
+}
+#sequencer-container table tr:nth-child(4n-3) td {
+    background-color: #419e95;
+}
+#sequencer-container table tr td:nth-child(1)::before {
+    counter-increment: row-counter;
+    content: counter(row-counter);
+}
+#sequencer-container table tr td:nth-child(1) {
+    background-color: #0f2623;
+    color: #e8f6f4;
+}
+#sequencer-container table {
+    border-spacing: 0;
+    border: 1px #010201 solid;
+    font-size: 10pt;
+    padding: 0;
+}
+#sequencer-container #sequencer-scroll {
+    max-height: 40vh;
+    overflow-y: auto;
+}
+#sequencer-container {
+    display: flex;
+    flex-direction: row;
+    padding: 0.5em 0;
+}
+
+#sequencer-container .sequencer {
+    counter-reset: row-counter -1;
+    padding: 0 0.5em;
+}
